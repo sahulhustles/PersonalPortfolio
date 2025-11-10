@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Sahul Hameed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config/supabase-config.js"></script>
+    <script src="services/supabase-service.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Sahul Hameed</a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="page-header">
+                <h1>About Me</h1>
+                <p>Learn more about my background, education, and technical skills</p>
+            </section>
+
+            <section class="about-content">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <div class="profile-photo-container" id="profilePhotoContainer" style="display: none; margin-bottom: 2rem; text-align: center;">
+                            <img id="profilePhoto" src="" alt="Profile Photo" style="max-width: 250px; width: 100%; border-radius: 12px; box-shadow: var(--shadow-large);">
+                        </div>
+                        <h2>My Journey</h2>
+                        <p>
+                            I'm a passionate Computer Science Engineering student currently pursuing my B.E at 
+                            Sri Krishna College of Technology, Coimbatore. My journey in technology began during 
+                            my high school years at SMBM National Public School, Dindigul, where I graduated 
+                            with 76.8% in 2023.
+                        </p>
+                        <p>
+                            Throughout my academic journey, I've developed a strong foundation in multiple 
+                            programming languages and technologies. I'm particularly interested in full-stack 
+                            development, cloud technologies, and artificial intelligence applications.
+                        </p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>3+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>10+</h3>
+                            <p>Technologies Mastered</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>2023</h3>
+                            <p>Started College</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="education-section">
+                <h2>Education</h2>
+                <div class="education-timeline">
+                    <div class="education-item">
+                        <div class="education-year">2023 - Present</div>
+                        <div class="education-content">
+                            <h3>B.E Computer Science Engineering</h3>
+                            <p class="institution">Sri Krishna College of Technology, Coimbatore</p>
+                            <p>Currently pursuing my undergraduate degree with focus on software development, 
+                            algorithms, and modern web technologies.</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-year">2020 - 2023</div>
+                        <div class="education-content">
+                            <h3>Higher Secondary Education</h3>
+                            <p class="institution">SMBM National Public School, Dindigul</p>
+                            <p>Completed Grade 12 with 76.8%. Strong foundation in Mathematics, 
+                            Physics, and Computer Science.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="skills-section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Python</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Web Technologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">REST API</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Frameworks & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">Streamlit</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">AWS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Database & Others</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">DBMS</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">AI/ML</span>
+                            <span class="skill-tag">Data Structures</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="certifications-section">
+                <h2>Certifications & Learning</h2>
+                <div class="certification-card">
+                    <h3>Continuous Learning Journey</h3>
+                    <p>I maintain an active learning repository showcasing my certifications and 
+                    completed courses across various technologies and platforms.</p>
+                    <a href="https://github.com/sahulhustles/Learnings.git" target="_blank" class="btn btn-primary">
+                        View Certifications
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/data-loader.js"></script>
+</body>
+</html>

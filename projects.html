@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Sahul Hameed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config/supabase-config.js"></script>
+    <script src="services/supabase-service.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Sahul Hameed</a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="page-header">
+                <h1>My Projects</h1>
+                <p>Explore my portfolio of web applications and software solutions</p>
+            </section>
+
+            <section class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Enterprise REST API System</h3>
+                        <p class="project-description">
+                            A comprehensive REST API built with Spring Boot and Java, featuring robust 
+                            authentication, data validation, and scalable architecture. Implements 
+                            industry-standard practices for enterprise-level applications with 
+                            comprehensive error handling and documentation.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">REST API</span>
+                            <span class="tech-tag">Maven</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/iamneo-production/188fe43f-f425-4cfa-b69d-31d90b2925c5-6a45a651-f228-4b0e-a462-3991c13a29f9.git" 
+                               target="_blank" class="btn btn-secondary">View Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card featured">
+                    <div class="project-content">
+                        <h3>AI Business Plan Generator</h3>
+                        <p class="project-description">
+                            An intelligent web application that leverages artificial intelligence to 
+                            generate comprehensive business plans. Built with Streamlit frontend and 
+                            Python backend, featuring natural language processing and automated 
+                            document generation with real-time deployment.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://aibusinessplangenerator.streamlit.app" 
+                               target="_blank" class="btn btn-primary">Live Demo</a>
+                            <a href="https://github.com/sahulhustles/AIBusinessPlanGenerator.git" 
+                               target="_blank" class="btn btn-secondary">View Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Advanced Calculator</h3>
+                        <p class="project-description">
+                            A sophisticated calculator application with clean user interface and 
+                            advanced mathematical operations. Features responsive design, keyboard 
+                            support, history tracking, and error handling. Demonstrates proficiency 
+                            in frontend development and user experience design.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Responsive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sahulhustles/SimpleCalculator.git" 
+                               target="_blank" class="btn btn-secondary">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-cta">
+                <h2>Interested in Working Together?</h2>
+                <p>I'm always excited to work on new projects and collaborate with fellow developers.</p>
+                <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/data-loader.js"></script>
+</body>
+</html>

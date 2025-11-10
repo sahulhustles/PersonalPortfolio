@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Sahul Hameed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config/supabase-config.js"></script>
+    <script src="services/auth-service.js"></script>
+    <script src="services/supabase-service.js"></script>
+    <script src="js/notifications.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Admin Panel</a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">View Website</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="btn btn-secondary" id="logoutBtn" style="margin-left: 1rem;">Logout</button>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="page-header">
+                <h1>Admin Dashboard</h1>
+                <p>Manage your website content</p>
+            </section>
+
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="projects">Projects</button>
+                <button class="tab-btn" data-tab="services">Services</button>
+                <button class="tab-btn" data-tab="about">About Page</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+
+            <!-- Projects Tab -->
+            <div class="tab-content active" id="projectsTab">
+                <div class="admin-section-header">
+                    <h2>Manage Projects</h2>
+                    <button class="btn btn-primary" id="addProjectBtn">Add New Project</button>
+                </div>
+                <div class="admin-grid" id="projectsGrid"></div>
+            </div>
+
+            <!-- Services Tab -->
+            <div class="tab-content" id="servicesTab">
+                <div class="admin-section-header">
+                    <h2>Manage Services</h2>
+                    <button class="btn btn-primary" id="addServiceBtn">Add New Service</button>
+                </div>
+                <div class="admin-grid" id="servicesGrid"></div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-content" id="aboutTab">
+                <h2>Manage About Page Content</h2>
+                
+                <div class="admin-card">
+                    <h3>Profile Photo</h3>
+                    <div class="photo-upload-section">
+                        <div class="photo-preview" id="photoPreview" style="display: none;">
+                            <img id="photoPreviewImg" src="" alt="Profile Photo Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-bottom: 1rem;">
+                        </div>
+                        <div class="form-group">
+                            <label for="photoUpload">Upload Profile Photo</label>
+                            <input type="file" id="photoUpload" accept="image/*" class="form-control">
+                            <small style="color: var(--text-secondary); display: block; margin-top: 0.5rem;">
+                                Supported formats: JPG, PNG, WebP. Max size: 5MB
+                            </small>
+                        </div>
+                        <div class="form-group" style="display: flex; gap: 1rem; align-items: center;">
+                            <button type="button" class="btn btn-primary" id="uploadPhotoBtn">Upload Photo</button>
+                            <button type="button" class="btn btn-secondary" id="removePhotoBtn" style="display: none;">Remove Photo</button>
+                            <span id="photoStatus" style="color: var(--text-secondary);"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="photoUrl">Or enter photo URL</label>
+                            <input type="url" id="photoUrl" class="form-control" placeholder="https://example.com/photo.jpg">
+                            <button type="button" class="btn btn-secondary" id="savePhotoUrlBtn" style="margin-top: 0.5rem;">Save URL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Personal Information</h3>
+                    <div class="form-group">
+                        <label for="aboutJourney">My Journey Text</label>
+                        <textarea id="aboutJourney" rows="4" class="form-control"></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="saveAboutBtn">Save Changes</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Statistics</h3>
+                    <div class="stats-editor" id="statsEditor"></div>
+                    <button class="btn btn-secondary" id="addStatBtn" style="margin-top: 1rem;">Add Stat</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Education</h3>
+                    <div id="educationEditor"></div>
+                    <button class="btn btn-secondary" id="addEducationBtn" style="margin-top: 1rem;">Add Education</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Skills</h3>
+                    <div id="skillsEditor"></div>
+                    <button class="btn btn-secondary" id="addSkillCategoryBtn" style="margin-top: 1rem;">Add Skill Category</button>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settingsTab">
+                <h2>Admin Settings</h2>
+                
+                <div class="admin-card">
+                    <h3>Change Admin Password</h3>
+                    <div class="form-group">
+                        <label for="newUsername">New Username</label>
+                        <input type="text" id="newUsername" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" class="form-control">
+                    </div>
+                    <button class="btn btn-primary" id="saveCredentialsBtn">Save Credentials</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Export/Import Data</h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn btn-secondary" id="exportDataBtn">Export All Data</button>
+                        <button class="btn btn-secondary" id="importDataBtn">Import Data</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Add/Edit -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Project</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="projectForm">
+                <input type="hidden" id="projectId">
+                <div class="form-group">
+                    <label for="projectTitle">Title</label>
+                    <input type="text" id="projectTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectTech">Technologies (comma separated)</label>
+                    <input type="text" id="projectTech" class="form-control" placeholder="Java, Spring Boot, REST API">
+                </div>
+                <div class="form-group">
+                    <label for="projectLiveUrl">Live Demo URL (optional)</label>
+                    <input type="url" id="projectLiveUrl" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="projectCodeUrl">Code URL (optional)</label>
+                    <input type="url" id="projectCodeUrl" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="projectFeatured"> Featured Project
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelProjectBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="serviceModalTitle">Add Service</h2>
+                <button class="modal-close" id="closeServiceModal">&times;</button>
+            </div>
+            <form id="serviceForm">
+                <input type="hidden" id="serviceId">
+                <div class="form-group">
+                    <label for="serviceTitle">Title</label>
+                    <input type="text" id="serviceTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDescription">Description</label>
+                    <textarea id="serviceDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelServiceBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Service</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+# robots.txt for Sahul Hameed Portfolio
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /admin-setup.html
+Disallow: /config/
+Disallow: /services/
+Disallow: /sql/
+
+# Sitemap
+Sitemap: https://yourwebsite.com/sitemap.xml

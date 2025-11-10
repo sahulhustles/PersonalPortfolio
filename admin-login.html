@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Sahul Hameed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-card {
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: var(--shadow-large);
+        }
+        .login-card h1 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .login-card p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        [data-theme="dark"] .error-message {
+            background: #300;
+            border-color: #633;
+            color: #f99;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Admin Panel</h1>
+            <p>Login to manage website content</p>
+            <div class="error-message" id="errorMessage"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" id="loginBtn" style="width: 100%;">Login</button>
+            </form>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="#" id="forgotPasswordLink" style="color: var(--primary-color); text-decoration: none; font-size: 14px;">Forgot Password?</a>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: none;">← Back to Website</a>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 0.5rem;">First time setup?</p>
+                <a href="admin-setup.html" style="color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500;">Create Admin Account</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config/supabase-config.js"></script>
+    <script src="services/auth-service.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Admin Login Handler with Supabase Auth
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+
+        // Check if already logged in
+        async function checkAuth() {
+            const { session } = await authService.getSession();
+            if (session) {
+                window.location.href = 'admin.html';
+            }
+        }
+        checkAuth();
+
+        // Handle login
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.disabled = true;
+            errorMessage.classList.remove('show');
+            
+            try {
+                const result = await authService.signIn(email, password);
+                
+                if (result.success) {
+                    // Success - redirect to admin panel
+                    window.location.href = 'admin.html';
+                } else {
+                    // Show error
+                    errorMessage.textContent = result.error || 'Invalid email or password';
+                    errorMessage.classList.add('show');
+                    
+                    // Hide error after 5 seconds
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 5000);
+                }
+            } catch (error) {
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                errorMessage.classList.add('show');
+            } finally {
+                // Remove loading state
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Handle forgot password
+        forgotPasswordLink.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                errorMessage.textContent = 'Please enter your email address first';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            forgotPasswordLink.textContent = 'Sending...';
+            
+            const result = await authService.resetPassword(email);
+            
+            if (result.success) {
+                errorMessage.style.background = '#efe';
+                errorMessage.style.borderColor = '#cfc';
+                errorMessage.style.color = '#3a3';
+                errorMessage.textContent = 'Password reset email sent! Check your inbox.';
+                errorMessage.classList.add('show');
+            } else {
+                errorMessage.textContent = result.error || 'Failed to send reset email';
+                errorMessage.classList.add('show');
+            }
+            
+            forgotPasswordLink.textContent = 'Forgot Password?';
+        });
+
+        // Initialize theme
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+</body>
+</html>
+
